@@ -1,5 +1,3 @@
-
-
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -12,26 +10,26 @@ header {
 
 .container {
   max-width: 1200px;
-  margin:  auto;
+  margin: auto;
   padding: 5px 5px;
-  display:flex;
+  display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .logo h1 {
-  margin:0;
+  margin: 0;
   color: #333333;
 }
 
 nav ul {
-  list-style-type:none;
+  list-style-type: none;
   margin: 0;
   padding: 0;
 }
 
 nav ul li {
-  display:inline-block;
+  display: inline-block;
   margin-right: 20px;
 }
 
@@ -78,12 +76,12 @@ nav ul li a {
 }
 
 .user-options button {
-  background-color:#ff7f00;
+  background-color: #ff7f00;
   color: #fff;
   cursor: pointer;
 }
 .user-options button :hover {
-  background-color:#ff5900 ;
+  background-color: #ff5900;
 }
 .user-options a {
   text-decoration: none;
@@ -94,22 +92,35 @@ nav ul li a {
   color: #007bff;
 }
 
-
-
-
 .logo {
   width: 100px;
 }
 .title {
-  font-family: Arial;
-  font-weight: bolder;
-  font-size: 30px;
-  text-align: center;
-  color: #4d5267;
-  margin-bottom: 30px;
-  margin-top: 30px;
+    position: relative;
+    white-space: nowrap;
 }
-
+    .title:after {
+      --deco-height: 0.3125em;
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: calc(var(--deco-height) * -0.625);
+      height: var(--deco-height);
+      background-image: url("data:image/svg+xml,%3Csvg width='100' height='64' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg clip-path='url(%23a)'%3E%3Cpath d='M-17 30.5C-1 22 72-4 54 13 37.9 28.2-2.5 57.5 16 55.5s72-29 104-40' stroke='%2300FDCF' stroke-width='10'/%3E%3C/g%3E%3Cdefs%3E%3CclipPath id='a'%3E%3Cpath fill='%23fff' d='M0 0h100v64H0z'/%3E%3C/clipPath%3E%3C/defs%3E%3C/svg%3E%0A");
+      background-size: auto 100%;
+      background-repeat: round;
+      background-position: 0em;
+    }
+.t2 {
+  padding-top: 10px;
+  padding-bottom: 20px;
+  font-size: 50px;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 1;
+  font-weight: 700;
+}
 
 .cta-button {
   display: inline-block;
@@ -136,10 +147,8 @@ footer {
   padding: 50px 0;
 }
 
-
-
 .login {
-  background-color:rgb(67,67,255);
+  background-color: rgb(67, 67, 255);
   color: rgb(255, 255, 255);
   cursor: pointer;
   font-family: Gilroy, "sans-serif";
@@ -162,10 +171,10 @@ footer {
   border-radius: 9px;
 }
 .login:hover {
-  background-color:  rgb(90, 75, 218);
+  background-color: rgb(90, 75, 218);
 }
 .sign {
-  background-color:#ffa500;
+  background-color: #ffa500;
   color: #f4f4f4;
   cursor: pointer;
   font-size: 14px;
@@ -182,7 +191,7 @@ footer {
   text-align: center;
   transition-duration: 0.2s;
   transition-property: all;
-  transition-timing-function:  cubic-bezier(0.4, 0, 0.2, 1);
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   width: 90px;
   border-radius: 9px;
   transition: background-color 0.3s;
@@ -191,13 +200,11 @@ footer {
   background-color: #ff7f00;
 }
 
-
-
-.mySlides img{
+.mySlides img {
   max-width: 100%;
-    max-height: 300px; /* Set the maximum height of the image */
-    display: block;
-    margin: 0 auto;
+  max-height: 300px; /* Set the maximum height of the image */
+  display: block;
+  margin: 0 auto;
 }
 
 .fade {
@@ -206,8 +213,12 @@ footer {
 }
 
 @keyframes fade {
-  from {opacity: .4}
-  to {opacity: 1}
+  from {
+    opacity: 0.4;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 /* Style the dots */
@@ -229,6 +240,8 @@ footer {
   text-align: center;
   margin-top: 10px;
   margin-bottom: 10px;
+  line-height: 48px;
+  font-size:19px;
 }
 .info-title {
   font-family: Arial;
@@ -242,29 +255,34 @@ footer {
   text-decoration-thickness: 10px;
 }
 
-.text {
+* {
+  margin: 0;
+  padding: 0;
+}
+.text1 {
+  background-color: rgb(199, 213, 240);
   padding-top: 10px;
   padding-bottom: 10px;
-  width: 200px;
-  text-align:left;
-  margin-left: 150px;
-  font-weight: bold;
-  font-size: 30px;
-  line-height: 45px;
-  
+  display: flex;
+  justify-content:left;
+  align-items: left;
 }
-.text-1 {
-  text-decoration-thickness: 15px;
+.text-main {
+  font-size: 32px;
+  font-weight: 700;
   font-family: Arial;
-  color: aqua;
-  display: inline-block;
-  color:rgb(90, 75, 218)
+  color: #5a4bda;
+  text-align: center;
+  line-height: 48px;
 }
-.pw {
-      background-color: rgb(223, 221, 246);
+.text {
+  font-size: 32px;
+  width: 290px;
+  text-align:left;
+  padding-left: 250px;
+  line-height: 48px;
 }
-.img {
-  float: right;
-  display: block;
-  max-width: 100%;
+.sec {
+    max-height:200px;
+    padding-left: 450px;
 }
