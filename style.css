@@ -1,0 +1,270 @@
+
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+header {
+  margin: 0;
+  background-color: #1c99b0;
+}
+
+.container {
+  max-width: 1200px;
+  margin:  auto;
+  padding: 5px 5px;
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo h1 {
+  margin:0;
+  color: #333333;
+}
+
+nav ul {
+  list-style-type:none;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  display:inline-block;
+  margin-right: 20px;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 17px;
+}
+
+.dropdown {
+  position: relative;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  z-index: 1;
+}
+
+.dropdown-content a {
+  display: block;
+  padding: 10px;
+  text-decoration: none;
+  color: #333;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.user-options input[type="text"],
+.user-options button {
+  padding: 8px;
+  border: none;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.user-options input[type="text"] {
+  width: 200px;
+}
+
+.user-options button {
+  background-color:#ff7f00;
+  color: #fff;
+  cursor: pointer;
+}
+.user-options button :hover {
+  background-color:#ff5900 ;
+}
+.user-options a {
+  text-decoration: none;
+  color: #333;
+}
+
+.user-options a:hover {
+  color: #007bff;
+}
+
+
+
+
+.logo {
+  width: 100px;
+}
+.title {
+  font-family: Arial;
+  font-weight: bolder;
+  font-size: 30px;
+  text-align: center;
+  color: #4d5267;
+  margin-bottom: 30px;
+  margin-top: 30px;
+}
+
+
+.cta-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #ffa500;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.cta-button:hover {
+  background-color: #ff7f00;
+}
+
+footer {
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+}
+.features {
+  background-color: #f4f4f4;
+  padding: 50px 0;
+}
+
+
+
+.login {
+  background-color:rgb(67,67,255);
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+  font-family: Gilroy, "sans-serif";
+  font-size: 14px;
+  font-weight: 600;
+  height: 37px;
+  margin-bottom: 0px;
+  margin-left: 50px;
+  margin-right: 50px;
+  margin-top: 0px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  text-align: center;
+  transition-duration: 0.2s;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  width: 90px;
+  border-radius: 9px;
+}
+.login:hover {
+  background-color:  rgb(90, 75, 218);
+}
+.sign {
+  background-color:#ffa500;
+  color: #f4f4f4;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  height: 37px;
+  margin-bottom: 0px;
+  margin-left: 10px;
+  margin-right: 0px;
+  margin-top: 0px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  text-align: center;
+  transition-duration: 0.2s;
+  transition-property: all;
+  transition-timing-function:  cubic-bezier(0.4, 0, 0.2, 1);
+  width: 90px;
+  border-radius: 9px;
+  transition: background-color 0.3s;
+}
+.sign:hover {
+  background-color: #ff7f00;
+}
+
+
+
+.mySlides img{
+  max-width: 100%;
+    max-height: 300px; /* Set the maximum height of the image */
+    display: block;
+    margin: 0 auto;
+}
+
+.fade {
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
+
+/* Style the dots */
+.dot {
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active {
+  background-color: #717171;
+}
+
+.hero-content {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.info-title {
+  font-family: Arial;
+  font-size: 30px;
+  font-weight: bold;
+  font-style: italic;
+  width: 270px;
+  text-align: center;
+  margin-left: 550px;
+  line-height: 50px;
+  text-decoration-thickness: 10px;
+}
+
+.text {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  width: 200px;
+  text-align:left;
+  margin-left: 150px;
+  font-weight: bold;
+  font-size: 30px;
+  line-height: 45px;
+  
+}
+.text-1 {
+  text-decoration-thickness: 15px;
+  font-family: Arial;
+  color: aqua;
+  display: inline-block;
+  color:rgb(90, 75, 218)
+}
+.pw {
+      background-color: rgb(223, 221, 246);
+}
+.img {
+  float: right;
+  display: block;
+  max-width: 100%;
+}
