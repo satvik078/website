@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>e-Book Viewer</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #1a1a2e;
+        color: #e0e0e0;
+        margin: 0;
+        padding: 0;
+      }
+
+      .container {
+        width: 80%;
+        margin: 30px auto;
+        padding: 20px;
+        background-color: #162447;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+        text-align: center;
+        border-radius: 5px; 
+      }
+
+      h1 {
+        color: #e94560;
+      }
+
+      .selection-panel {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap; 
+        margin-bottom: 20px;
+      }
+
+      .subject-selection,
+      .book-selection {
+        width: 45%;
+        text-align: left;
+        margin-bottom: 15px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+        color: #ffffff;
+      }
+
+      .select2 {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #1f4068;
+        color: #333;
+      }
+
+      .ebook-container {
+        width: 100%;
+        height: 600px;
+        border: 2px solid #e94560;
+        border-radius: 10px;
+        overflow: hidden;
+        margin-top: 20px;
+      }
+
+      iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          width: 95%;
+        }
+
+        .subject-selection,
+        .book-selection {
+          width: 100%;
+        }
+
+        .ebook-container {
+          height: 400px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>E-Book Viewer</h1>
+      <div class="selection-panel">
+        <div class="subject-selection">
+          <label for="subject">Select a Subject:</label>
+          <select id="subject">
+            <option value="">Select Subject</option>
+            <option value="COA">Computer Architecture</option>
+            <option value="DAA">Design&Analysis of Algorithm</option>
+            <option value="DM">Discrete Mathematics</option>
+            <option value="PE">Professional Ethics</option>
+            <option value="python">Python</option>
+            <option value="TOC">Theory of Computation</option>
+            <option value="DE">Digital Electronics</option>
+            <option value="DBMS">DataBase Management System</option>
+            <option value="OS">Operating System</option>
+            <option value="DCCN">Computer Networks</option>
+            <option value="AI">Artificial Intellegence</option>
+            <option value="DSA">Data Structure And Algorithm</option>
+            <option value="BE">Basic Electronics</option>
+            <option value="DS">Data Science</option>
+            <option value="TC">Technical Communications</option>
+            <option value="EM">Engineering Mathematics</option>
+            <option value="EP">Engineering Physics</option>
+            <option value="C_Prog">C/C++ Programming</option>
+            <option value="ML">Machine Learning</option>
+            <option value="IINS">Information to Network Security</option>
+          </select>
+        </div>
+        <div class="book-selection">
+          <label for="book">Select an e-Book:</label>
+          <select id="book">
+            <option value="">Select Ebook</option>
+            <option value="COA">COA Book 1</option>
+            <option value="COA">COA Book 2</option>
+            <option value="COA">COA Book 3</option>
+            <option value="DAA">DAA Book 1</option>
+            <option value="DAA">DAA Book 2</option>
+            <option value="DAA">DAA Book 3</option>
+            <option value="DM">DM Book 1</option>
+            <option value="DM">DM Book 2</option>
+            <option value="DM">DM Book 3</option>
+            <option value="PE">PE Book 1</option>
+            <option value="PE">PE Book 2</option>
+            <option value="PE">PE Book 3</option>
+            <option value="python">Python Book 1</option>
+            <option value="python">Python Book 2</option>
+            <option value="python">Python Book 3</option>
+            <option value="TOC">TOC Book 1</option>
+            <option value="TOC">TOC Book 2</option>
+            <option value="TOC">TOC Book 3</option>
+            <option value="DE">DE Book 1</option>
+            <option value="DE">DE Book 2</option>
+            <option value="DE">DE Book 3</option>
+            <option value="DBMS">DBMS Book 1</option>
+            <option value="DBMS">DBMS Book 2</option>
+            <option value="DBMS">DBMS Book 3</option>
+            <option value="OS">OS Book 1</option>
+            <option value="OS">OS Book 2</option>
+            <option value="OS">OS Book 3</option>
+            <option value="DCCN">DCCN Book 1</option>
+            <option value="DCCN">DCCN Book 2</option>
+            <option value="DCCN">DCCN Book 3</option>
+            <option value="AI">AI Book 1</option>
+            <option value="AI">AI Book 2</option>
+            <option value="AI">AI Book 3</option>
+            <option value="DSA">DSA Book 1</option>
+            <option value="DSA">DSA Book 2</option>
+            <option value="DSA">DSA Book 3</option>
+            <option value="BE">BE Book 1</option>
+            <option value="BE">BE Book 2</option>
+            <option value="BE">BE Book 3</option>
+            <option value="DS">DS Book 1</option>
+            <option value="DS">DS Book 2</option>
+            <option value="DS">DS Book 3</option>
+            <option value="TC">TC Book 1</option>
+            <option value="TC">TC Book 2</option>
+            <option value="TC">TC Book 3</option>
+            <option value="EM">EM Book 1</option>
+            <option value="EM">EM Book 2</option>
+            <option value="EM">EM Book 3</option>
+            <option value="EP">EP Book 1</option>
+            <option value="EP">EP Book 2</option>
+            <option value="EP">EP Book 3</option>
+            <option value="C_Prog">C/C++ Book 1</option>
+            <option value="C_Prog">C/C++ Book 2</option>
+            <option value="C_Prog">C/C++ Book 3</option>
+            <option value="ML">ML Book 1</option>
+            <option value="ML">ML Book 2</option>
+            <option value="ML">ML Book 3</option>
+            <option value="IINS">IINS Book 1</option>
+
+           
+          </select>
+        </div>
+      </div>
+      <div class="ebook-container">
+        <iframe id="ebook-viewer" src="" frameborder="0"></iframe>
+      </div>
+    </div>
+
+    <script>
+      const subjectDropdown = document.getElementById("subject");
+      const ebookDropdown = document.getElementById("book");
+      const ebookViewer = document.getElementById("ebook-viewer");
+
+      
+      const ebookData = {
+        COA: [
+          { title: "Select-Ebook", url: "" },
+          { title: "COA Book 1", url: "https://drive.google.com/file/d/1KgWx4wVi38rp3GNWXT_jz-F_qwzQPRbV/preview" },
+          { title: "COA Book 2", url: "https://drive.google.com/file/d/1OBsaBI-A8Oacz8gtTLqWb0hFXFrZG_xx/preview?usp=drive_link" },
+          { title: "COA Book 3", url: "https://drive.google.com/file/d/1hAjDoYCQos9aDZM_guJoF8YOIGMKAe_R/preview?usp=drive_link" },
+        ],
+        DAA: [
+          { title: "Select-Ebook", url: "" },
+          { title: "DAA Book 1", url: "https://drive.google.com/file/d/1z7s9ZrkMrrjwxGi6Oj6CG3a_9QqpcyK_/preview?usp=drive_link" },
+          { title: "DAA Book 2", url: "https://drive.google.com/file/d/1gY9ca4p0kSUEsTFc-CY4O7S8cSW9i13z/preview?usp=drive_link" },
+        ],
+        DM: [
+          { title: "Select-Ebook", url: "" },
+          { title: "DM Book 1", url: "https://drive.google.com/file/d/1tl3E36Tek9Bw3omhYMtJ-WXLxh1PdZHL/preview?usp=drive_link" },
+          { title: "DM Book 2", url: "https://drive.google.com/file/d/10rKCDWBcNmmHx2aO2lZIVTOXV_WSBBjJ/preview?usp=drive_link" },
+        ],
+        PE: [
+          { title: "Select-Ebook", url: "" },
+          { title: "PE Book 1", url: "https://drive.google.com/file/d/1Rk36ftEOBK2BcKqgU5HC6Pjz_q8S3CKa/preview?usp=drive_link" },
+        ],
+        python: [
+          { title: "Select-Ebook", url: "" },
+          { title: "python Book 1", url: "https://drive.google.com/file/d/1L1yXoWPamDxZs_-7js0G-5jCDnJg_MXG/preview?usp=drive_link" },
+          { title: "python Book 2", url: "https://drive.google.com/file/d/1btAPdn65NA1dAfIFlSXNkQNEeAYyZRxo/preview?usp=drive_link" },
+        ],
+        TOC: [
+          { title: "Select-Ebook", url: "" },
+          { title: "TOC Book 1", url: "ebooks/TOC1.pdf" },
+          { title: "TOC Book 2", url: "ebooks/TOC2.pdf" },
+          { title: "TOC Book 3", url: "ebooks/TOC3.pdf" },
+        ],
+        DE: [
+          { title: "Select-Ebook"},
+          { title: "DE Book 1", url: "https://drive.google.com/file/d/1iIUzeuRoYoAZ5eFDdvE5kuV8Q62ucTbP/preview" },
+          { title: "DE Book 2", url: "ebooks/DE2.pdf" },
+          { title: "DE Book 3", url: "ebooks/DE3.pdf" },
+        ],
+        DBMS: [
+          { title: "Select-Ebook", url: "" },
+          { title: "DBMS Book 1", url: "ebooks/DBMS1.pdf" },
+          { title: "DBMS Book 2", url: "ebooks/DBMS2.pdf" },
+          { title: "DBMS Book 3", url: "ebooks/DBMS3.pdf" },
+        ],
+        OS: [
+          { title: "Select-Ebook", url: "" },
+          { title: "OS Book 1", url: "ebooks/OS1.pdf" },
+          { title: "OS Book 2", url: "ebooks/OS2.pdf" },
+          { title: "OS Book 3", url: "ebooks/OS3.pdf" },
+        ],
+        DCCN: [
+          { title: "Select-Ebook", url: "" },
+          { title: "DCCN Book 1", url: "ebooks/DCCN1.pdf" },
+          { title: "DCCN Book 2", url: "ebooks/DCCN2.pdf" },
+          { title: "DCCN Book 3", url: "ebooks/DCCN3.pdf" },
+        ],
+        AI: [
+          { title: "Select-Ebook", url: "" },
+          { title: "AI Book 1", url: "https://drive.google.com/file/d/1MtAHDQd5FqgUZgHOppJ8j0m_NCUDmuFz/preview?usp=drive_link" },
+          { title: "AI Book 2", url: "ebooks/AI2.pdf" },
+          { title: "AI Book 3", url: "ebooks/AI3.pdf" },
+        ],
+        DSA: [
+          { title: "Select-Ebook", url: "" },
+          { title: "DSA Book 1", url: "https://drive.google.com/file/d/1YNpPnm42DNYSxKhtZRyxpmNHS4RedkLW/preview?usp=drive_link" },
+          { title: "DSA Book 2", url: "ebooks/DSA2.pdf" },
+          { title: "DSA Book 3", url: "ebooks/DSA3.pdf" },
+        ],
+        BE: [
+          { title: "Select-Ebook", url: "" },
+          { title: "BE Book 1", url: "ebooks/BE1.pdf" },
+          { title: "BE Book 2", url: "ebooks/BE2.pdf" },
+          { title: "BE Book 3", url: "ebooks/BE3.pdf" },
+        ],
+        DS: [
+          { title: "Select-Ebook", url: "" },
+          { title: "DS Book 1", url: "https://drive.google.com/file/d/1BG576RgA024fdi2zThzb7qoj2GrIyj0O/preview?usp=drive_link" },
+          { title: "DS Book 2", url: "ebooks/DS2.pdf" },
+          { title: "DS Book 3", url: "ebooks/DS3.pdf" },
+        ],
+        TC: [
+          { title: "Select-Ebook", url: "" },
+          { title: "TC Book 1", url: "https://drive.google.com/file/d/1fSUqL9Z_KLhaziAHE_Qz2Sw0jXcVPX6J/preview?usp=drive_link" },
+          { title: "TC Book 2", url: "ebooks/TC2.pdf" },
+          { title: "TC Book 3", url: "ebooks/TC3.pdf" },
+        ],
+        EM: [
+          { title: "Select-Ebook", url: "" },
+          { title: "EM Book 1", url: "ebooks/EM1.pdf" },
+          { title: "EM Book 2", url: "ebooks/EM2.pdf" },
+          { title: "EM Book 3", url: "ebooks/EM3.pdf" },
+        ],
+        EP: [
+          { title: "Select-Ebook", url: "" },
+          { title: "EP Book 1", url: "ebooks/EP1.pdf" },
+          { title: "EP Book 2", url: "ebooks/EP2.pdf" },
+          { title: "EP Book 3", url: "ebooks/EP3.pdf" },
+        ],
+        C_Prog: [
+          { title: "Select-Ebook", url: "" },
+          { title: "C_Prog Book 1", url: "ebooks/C_Prog1.pdf" },
+          { title: "C_Prog Book 2", url: "ebooks/C_Prog2.pdf" },
+          { title: "C_Prog Book 3", url: "ebooks/C_Prog3.pdf" },
+        ],
+        ML: [
+          { title: "Select-Ebook", url: "" },
+          { title: "ML Book 1", url: "https://drive.google.com/file/d/1ASRyN1JdTjrFGrl8zCuqLsAjWFpKh0qD/preview?usp=sharing" },
+          { title: "ML Book 2", url: "https://drive.google.com/file/d/1M_7KQ2YS1AVTp0rMjN3slQiYYpSTmBDk/preview?usp=drive_link" },
+          { title: "ML Book 3", url: "https://drive.google.com/file/d/1QRQL7CuqNUur7n60cMaNy8qxTt3M6xG0/preview?usp=drive_link" },
+        ],
+        IINS: [
+          { title: "Select-Ebook", url: "" },
+          { title: "IINS Book 1", url: "https://drive.google.com/file/d/1FHyMB596jUOVOp9cpFNAaJMozO8rgRyH/preview?usp=drive_link" },
+          { title: "IINS Book 2", url: "https://drive.google.com/file/d/12vCQ4Of4Y2yvZq5j4_hc4Z9px4EO7OGn/preview?usp=drive_link" },
+          { title: "IINS Book 3", url: "https://drive.google.com/file/d/11RNMP9k8wJBlCd0TrZSvBLZERDP_-wZ7/preview?usp=drive_link" },
+          { title: "IINS Book 4", url: "https://drive.google.com/file/d/1_D8lu6xmOSNn3IhxvoMEkI18luMGjLAz/preview?usp=drive_link" },
+        ],
+
+      };
+
+     
+      function populateEbookOptions(subject) {
+        ebookDropdown.innerHTML = ""; 
+
+        if (subject) {
+          const ebooks = ebookData[subject];
+          for (const ebook of ebooks) {
+            const option = document.createElement("option");
+            option.value = ebook.url;
+            option.textContent = ebook.title;
+            ebookDropdown.appendChild(option);
+          }
+        }
+      }
+
+      
+      subjectDropdown.addEventListener("change", () => {
+        const selectedSubject = subjectDropdown.value;
+        populateEbookOptions(selectedSubject);
+        ebookViewer.src = ""; 
+      });
+
+      // Event listener for eBook dropdown change
+      ebookDropdown.addEventListener("change", () => {
+        const selectedEbookUrl = ebookDropdown.value;
+        ebookViewer.src = selectedEbookUrl; 
+      });
+    </script>
+  </body>
+</html>

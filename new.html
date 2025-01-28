@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Event Calendar</title>
+    <!-- FullCalendar CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.css" rel="" />
+    <!-- Custom CSS -->
+    <style>
+      body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+h1 {
+    color: #4a90e2;
+    margin: 0;
+}
+
+#calendar {
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.fc-toolbar-title {
+    font-size: 24px;
+    color: #4a90e2;
+}
+
+.fc-button-primary {
+    background-color: #4a90e2;
+    border-color: #4a90e2;
+}
+
+.fc-event {
+    background-color: #4a90e2;
+    border: 1px solid #4a90e2;
+    color: #fff;
+}
+
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+        padding: 10px;
+    }
+
+    .fc-toolbar-title {
+        font-size: 20px;
+    }
+
+    #calendar {
+        font-size: 14px;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Student Event Calendar</h1>
+        </header>
+        <main>
+            <div id="calendar"></div>
+        </main>
+    </div>
+
+    <!-- FullCalendar JS -->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.js"></script>
+    <!-- Custom JS -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay'
+        },
+        events: [
+            {
+                title: 'Math Exam',
+                start: '2024-09-15',
+                end: '2024-09-15',
+                color: '#ff0000' // Red
+            },
+            {
+                title: 'Science Fair',
+                start: '2024-09-20',
+                end: '2024-09-22',
+                color: '#00ff00' // Green
+            },
+            {
+                title: 'Sports Day',
+                start: '2024-09-25',
+                allDay: true,
+                color: '#0000ff' // Blue
+            }
+        ],
+        eventClick: function(info) {
+            alert('Event: ' + info.event.title);
+            // change the border color just for fun
+            info.el.style.borderColor = 'red';
+        }
+    });
+
+    calendar.render();
+});
+
+    </script>
+</body>
+</html>

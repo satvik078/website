@@ -2,8 +2,9 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-image: url(hand-drawn-back-school-background_23-2149464866.jpg)
+    background-image: url(cse_note.jpg)
 }
+
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -29,7 +30,12 @@ body {
 }
 
 .semester {
+    display: none;
     margin-bottom: 40px;
+}
+
+.semester.active {
+    display: block;
 }
 
 .semester h3 {
