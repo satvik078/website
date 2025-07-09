@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 // Database connection configuration
 $host = "lsql110.infinityfree.com";
 $username = "if0_37135185"; 
@@ -14,57 +16,106 @@ if ($conn->connect_error) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = $conn->real_escape_string($_POST['Email']);
-    $password = $_POST['password'];
-
-    // Fetching user data based on the email
-    $sql = "SELECT * FROM users WHERE email = '$email'";
-    $result = $conn->query($sql);
-
-    if ($result->num_rows > 0) {
+    
+    // Check if this is a face login request
+    if (isset($_POST['face_login']) && $_POST['face_login'] == '1') {
+        $username = $conn->real_escape_string($_POST['username']);
         
-        $row = $result->fetch_assoc();
+        // Fetching user data based on the username
+        $sql = "SELECT * FROM users WHERE username = '$username'";
+        $result = $conn->query($sql);
 
-       
-        if (password_verify($password, $row['password'])) {
-            $course = $row['course']; 
+        if ($result && $result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $course = $row['course'];
+            
+            // Set session for face login user
+            $_SESSION['user'] = $username;
+            $_SESSION['email'] = $row['email'];
+            $_SESSION['course'] = $course;
+            
+            // Redirect based on course
             if ($course == "cse") {
                 echo "<script>
-                    alert('Login successful! Redirecting to CSE dashboard.');
+                    alert('Face login successful! Redirecting to CSE dashboard.');
                     window.location.href = 'cse.html';
                 </script>";
             } elseif ($course == "ece") {
                 echo "<script>
-                    alert('Login successful! Redirecting to ECE dashboard.');
+                    alert('Face login successful! Redirecting to ECE dashboard.');
                     window.location.href = 'ece.html';
                 </script>";
             } else {
                 echo "<script>
-                    alert('Login successful! No Course selected! Redirecting to sign up');
+                    alert('Face login successful! No Course selected! Redirecting to sign up');
                     window.location.href = 'signup.html';
                 </script>";
             }
         } else {
             echo "<script>
-                alert('Incorrect password. Please try again.');
+                alert('Username not found. Please check your username or sign up.');
                 window.location.href = 'login.html'; 
             </script>";
         }
     } else {
-       
-        echo "<script>
-            alert('No account found with this email. Please sign up.');
-            window.location.href = 'signup.html'; 
-        </script>";
-        }
-    } else {
-        
-        echo "<script>
-            alert('No account found with this email. Please sign up.');
-            window.location.href = 'signup.html'; 
-        </script>";
-    }
+        // Regular password login
+        $email = $conn->real_escape_string($_POST['Email']);
+        $password = $_POST['password'];
 
+        // Fetching user data based on the email
+        $sql = "SELECT * FROM users WHERE email = '$email'";
+        $result = $conn->query($sql);
+
+        if ($result->num_rows > 0) {
+            
+            $row = $result->fetch_assoc();
+
+           
+            if (password_verify($password, $row['password'])) {
+                $course = $row['course']; 
+                // Set session for password login user
+                $_SESSION['user'] = $row['username'];
+                $_SESSION['email'] = $email;
+                $_SESSION['course'] = $course;
+                
+                if ($course == "cse") {
+                    echo "<script>
+                        alert('Login successful! Redirecting to CSE dashboard.');
+                        window.location.href = 'cse.html';
+                    </script>";
+                } elseif ($course == "ece") {
+                    echo "<script>
+                        alert('Login successful! Redirecting to ECE dashboard.');
+                        window.location.href = 'ece.html';
+                    </script>";
+                } else {
+                    echo "<script>
+                        alert('Login successful! No Course selected! Redirecting to sign up');
+                        window.location.href = 'signup.html';
+                    </script>";
+                }
+            } else {
+                echo "<script>
+                    alert('Incorrect password. Please try again.');
+                    window.location.href = 'login.html'; 
+                </script>";
+            }
+        } else {
+           
+            echo "<script>
+                alert('No account found with this email. Please sign up.');
+                window.location.href = 'signup.html'; 
+            </script>";
+            }
+        } else {
+            
+            echo "<script>
+                alert('No account found with this email. Please sign up.');
+                window.location.href = 'signup.html'; 
+            </script>";
+        }
+    }
+}
 
 $conn->close();
 ?>

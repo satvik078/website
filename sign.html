@@ -209,10 +209,14 @@
     <section class="login-form">
       <div class="container">
         <h2>Sign Up</h2>
-        <form action="insert.php" method="post">
+        <form action="insert.php" method="post" enctype="multipart/form-data">
           <div class="form-group">
             <label for="email">E Mail Id:</label>
             <input type="text" id="gmail-password" name="Email" required />
+          </div>
+          <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required />
           </div>
           <div class="form-group">
             <label for="password">Password:</label>
@@ -228,6 +232,13 @@
               </option>
               <!-- Add more options for other courses -->
             </select>
+          </div>
+          <div class="form-group">
+            <label for="face-capture">Face Image (for login):</label>
+            <button type="button" id="capture-face-btn" class="btn-otp">Capture Face</button>
+            <video id="webcam" width="320" height="240" autoplay style="display:none; margin-top: 10px;"></video>
+            <canvas id="snapshot" width="320" height="240" style="display:none; margin-top: 10px;"></canvas>
+            <div id="face-status" style="color: #fff; margin-top: 10px;"></div>
           </div>
           <button type="submit" class="btn-submit">Submit</button>
           <div class="separator">OR</div>
@@ -247,6 +258,56 @@
         // Simulate a Google Sign-Up process
         alert("Sign Up with Google feature coming soon!");
       }
+    </script>
+    <script>
+    let stream = null;
+    let capturedImageData = null;
+
+    document.getElementById('capture-face-btn').onclick = async function() {
+      const video = document.getElementById('webcam');
+      const canvas = document.getElementById('snapshot');
+      const statusDiv = document.getElementById('face-status');
+      
+      if (stream) {
+        // If webcam is already on, capture the image
+        canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+        capturedImageData = canvas.toDataURL('image/jpeg');
+        statusDiv.textContent = 'Face captured!';
+        stream.getTracks().forEach(track => track.stop());
+        video.style.display = 'none';
+        canvas.style.display = 'block';
+        stream = null;
+      } else {
+        // Start webcam
+        try {
+          stream = await navigator.mediaDevices.getUserMedia({ video: true });
+          video.srcObject = stream;
+          video.style.display = 'block';
+          canvas.style.display = 'none';
+          statusDiv.textContent = 'Position your face and click "Capture Face" again';
+        } catch (err) {
+          statusDiv.textContent = 'Error accessing webcam: ' + err.message;
+        }
+      }
+    };
+
+    // Update form submission to include face data
+    document.querySelector('form').onsubmit = function(e) {
+      if (!capturedImageData) {
+        e.preventDefault();
+        alert('Please capture your face image before submitting.');
+        return false;
+      }
+      
+      // Add the captured image data to the form
+      const hiddenInput = document.createElement('input');
+      hiddenInput.type = 'hidden';
+      hiddenInput.name = 'face_image';
+      hiddenInput.value = capturedImageData;
+      this.appendChild(hiddenInput);
+      
+      return true;
+    };
     </script>
   </body>
 </html>

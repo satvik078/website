@@ -14,12 +14,12 @@
       <h2>Login</h2>
       <form action="login.php" method="post">
         <div class="form-group">
-          <label for="email">E Mail Id:</label>
+          <label for="username">Username:</label>
           <input
             type="text"
-            id="gmail-password"
-            name="Email"
-            placeholder="Enter your Email Address"
+            id="username-input"
+            name="username"
+            placeholder="Enter your Username"
             required
           />
         </div>
@@ -36,6 +36,10 @@
 
         <button type="submit">Login</button>
       </form>
+      <button type="button" id="face-login-btn" style="display:none;">Login with Face</button>
+      <video id="webcam" width="320" height="240" autoplay style="display:none;"></video>
+      <canvas id="snapshot" width="320" height="240" style="display:none;"></canvas>
+      <div id="face-login-message" style="color: #fff; margin-top: 10px;"></div>
     </div>
   </body>
 </html>
@@ -107,3 +111,104 @@
     background-color: #0056b3;
   }
 </style>
+
+<script>
+const usernameInput = document.getElementById('username-input');
+const faceLoginBtn = document.getElementById('face-login-btn');
+const video = document.getElementById('webcam');
+const canvas = document.getElementById('snapshot');
+const messageDiv = document.getElementById('face-login-message');
+let stream = null;
+let verifiedUsername = '';
+
+usernameInput.addEventListener('blur', checkUsername); // or use 'input' for live checking
+
+async function checkUsername() {
+  const username = usernameInput.value.trim();
+  if (!username) {
+    faceLoginBtn.style.display = 'none';
+    messageDiv.textContent = '';
+    return;
+  }
+  messageDiv.textContent = 'Checking username...';
+  const formData = new URLSearchParams();
+  formData.append('username', username);
+
+  try {
+    const response = await fetch('check_username.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: formData.toString()
+    });
+    const result = await response.json();
+    if (result.exists) {
+      faceLoginBtn.style.display = 'inline-block';
+      messageDiv.textContent = '';
+      verifiedUsername = username;
+    } else {
+      faceLoginBtn.style.display = 'none';
+      messageDiv.textContent = 'Username not found. Please register or check your username.';
+      verifiedUsername = '';
+    }
+  } catch (err) {
+    faceLoginBtn.style.display = 'none';
+    messageDiv.textContent = 'Error checking username.';
+    verifiedUsername = '';
+  }
+}
+
+faceLoginBtn.onclick = async function() {
+  messageDiv.textContent = '';
+  video.style.display = 'block';
+  canvas.style.display = 'none';
+  faceLoginBtn.style.display = 'none';
+
+  // Start webcam
+  stream = await navigator.mediaDevices.getUserMedia({ video: true });
+  video.srcObject = stream;
+
+  // Wait for the video to be ready
+  await new Promise(resolve => {
+    video.onloadedmetadata = () => resolve();
+  });
+
+  // Automatically capture after 2 seconds
+  setTimeout(async () => {
+    canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+    canvas.style.display = 'block';
+    // Stop webcam
+    stream.getTracks().forEach(track => track.stop());
+    video.style.display = 'none';
+    messageDiv.textContent = 'Processing...';
+
+    const imageData = canvas.toDataURL('image/jpeg');
+
+    // Send to Flask API with email
+    try {
+      const response = await fetch('https://face-recognition-4n4r.onrender.com/face-auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ image: imageData, username: verifiedUsername })
+      });
+      const result = await response.json();
+
+      if (result.success) {
+        messageDiv.textContent = 'Welcome, ' + verifiedUsername + '! Logging you in...';
+        // Send to PHP backend to set session
+        const phpResponse = await fetch('login.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: `username=${encodeURIComponent(verifiedUsername)}&face_login=1`
+        });
+        window.location.href = 'dashboard.html';
+      } else {
+        messageDiv.textContent = 'Face not recognized: ' + (result.error || 'Unknown error');
+        faceLoginBtn.style.display = 'inline-block';
+      }
+    } catch (err) {
+      messageDiv.textContent = 'Error: ' + err.message;
+      faceLoginBtn.style.display = 'inline-block';
+    }
+  }, 2000);
+};
+</script>
