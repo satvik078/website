@@ -11,7 +11,7 @@ app = Flask(__name__)
 CORS(app)
 
 # Load known encodings and student IDs
-with open("/Users/satvikpandey/Downloads/project/website (1)/face recognition/EncodeFile.p", "rb") as file:
+with open("face recognition/EncodeFile.p", "rb") as file:
     encodeListKnown, studentIds = pickle.load(file)
 
 @app.route('/face-auth', methods=['POST'])
@@ -54,7 +54,3 @@ def face_auth():
 
     except Exception as e:
         return jsonify({'success': False, 'error': str(e)}), 500
-
-if __name__ == '__main__':
-    # You can change host/port as needed
-    app.run(host='0.0.0.0', port=8000)
