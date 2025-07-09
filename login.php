@@ -59,25 +59,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     } else {
         // Regular password login
-        $email = $conn->real_escape_string($_POST['Email']);
+        $username = $conn->real_escape_string($_POST['username']);
         $password = $_POST['password'];
 
-        // Fetching user data based on the email
-        $sql = "SELECT * FROM users WHERE email = '$email'";
+        // Fetching user data based on the username
+        $sql = "SELECT * FROM users WHERE username = '$username'";
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
-            
             $row = $result->fetch_assoc();
-
-           
             if (password_verify($password, $row['password'])) {
                 $course = $row['course']; 
                 // Set session for password login user
-                $_SESSION['user'] = $row['username'];
-                $_SESSION['email'] = $email;
+                $_SESSION['user'] = $username;
+                $_SESSION['email'] = $row['email'];
                 $_SESSION['course'] = $course;
-                
                 if ($course == "cse") {
                     echo "<script>
                         alert('Login successful! Redirecting to CSE dashboard.');
@@ -101,16 +97,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </script>";
             }
         } else {
-           
             echo "<script>
-                alert('No account found with this email. Please sign up.');
-                window.location.href = 'signup.html'; 
-            </script>";
-            }
-        } else {
-            
-            echo "<script>
-                alert('No account found with this email. Please sign up.');
+                alert('No account found with this username. Please sign up.');
                 window.location.href = 'signup.html'; 
             </script>";
         }
