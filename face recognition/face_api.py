@@ -8,14 +8,17 @@ import base64
 import os
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, supports_credentials=True)
 
 # Load known encodings and student IDs
 with open("face recognition/EncodeFile.p", "rb") as file:
     encodeListKnown, studentIds = pickle.load(file)
 
-@app.route('/face-auth', methods=['POST'])
+@app.route('/face-auth', methods=['POST', 'OPTIONS'])
 def face_auth():
+    if request.method == 'OPTIONS':
+        # CORS preflight
+        return '', 204
     data = request.get_json()
     if not data or 'image' not in data or 'username' not in data:
         return jsonify({'success': False, 'error': 'No image or username provided'}), 400
